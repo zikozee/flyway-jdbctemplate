@@ -1,6 +1,7 @@
 package com.zikozee.flywayjdbctemplate.movie;
 
 import com.zikozee.flywayjdbctemplate.exception.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,10 @@ import java.util.Optional;
  */
 
 @Service
+@RequiredArgsConstructor
 public class MovieService {
 
     private final MovieDao movieDao;
-
-    public MovieService(MovieDao movieDao) {
-        this.movieDao = movieDao;
-    }
 
     public List<Movie> getMovies() {
         return movieDao.selectMovies();

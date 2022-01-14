@@ -1,5 +1,6 @@
 package com.zikozee.flywayjdbctemplate.movie;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/movies")
+@RequiredArgsConstructor
 public class MovieController {
 
     private final MovieService movieService;
-
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @GetMapping
     public List<Movie> listMovies() {

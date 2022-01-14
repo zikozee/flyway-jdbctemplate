@@ -2,6 +2,8 @@ package com.zikozee.flywayjdbctemplate.movie;
 
 import com.zikozee.flywayjdbctemplate.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +47,15 @@ public class MovieService {
     public Movie getMovie(int id) {
         return movieDao.selectMovieById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Movie with id %s not found", id)));
+    }
+
+    public PageImpl<Movie> getPagedMovies(Pageable pageable) {
+        return movieDao.getPagedMovies(pageable);
+    }
+
+    public String updateMovie(String name, int id) {
+        int result = movieDao.updateMovie(name, id);
+        if(result >0) return "Update Successful";
+        else throw new NotFoundException(String.format("Movie with name %s not found", name));
     }
 }

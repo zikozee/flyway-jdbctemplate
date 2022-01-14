@@ -1,6 +1,10 @@
 package com.zikozee.flywayjdbctemplate.movie;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +26,11 @@ public class MovieController {
         return movieService.getMovies();
     }
 
+    @GetMapping(path = "pagedMovies")
+    public PageImpl<Movie> pagedMovies(final Pageable pageable) {
+        return movieService.getPagedMovies(pageable);
+    }
+
     @GetMapping("{id}")
     public Movie getMovieId(@PathVariable("id") Integer id) {
         return movieService.getMovie(id);
@@ -38,4 +47,8 @@ public class MovieController {
     }
 
     // TODO: Update movie
+    @PutMapping(path = "{name}/{id}")
+    public String updateMovie(@PathVariable("name") String name, @PathVariable("id") int id) {
+        return movieService.updateMovie(name, id);
+    }
 }
